@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const encrypt = require("mongoose-encryption")
 
 const app = express();
 
@@ -13,15 +14,19 @@ app.use(bodyParser.urlencoded({
 //mongodb://localhost:27017/shopping
 mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 
-//creating a user schema
-const userSchema = {
+//making it an object created directly from the mongoos Schema
+const userSchema = new mongoose.Schema ({
     email: String,
     password: String
-};
+});
+// secret used to incrypyt the password
+// mongo's save()-> encrypt password, find() -> decrypty
+const secret = "TheSecret.";
+userSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password'] });
+
 
 //using the user schema to set up a new user model
 //"USER" collection created using the user Schema
-
 const User = new mongoose.model("User", userSchema)
 
 
