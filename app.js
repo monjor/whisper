@@ -10,8 +10,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-mongoose.connect("mongodb://localhost:2701/userDB", {useNewUrlParser: true});
+//mongodb://localhost:27017/shopping
+mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true});
 
 //creating a user schema
 const userSchema = {
@@ -46,7 +46,7 @@ app.post("/register", function(req, res){
         if(err) {
             console.log(err);
         }else{
-            res.render("Secret");
+            res.render("secrets");
         }
     });
 
