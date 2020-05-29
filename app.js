@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema ({
     password: String
 });
 // secret used to incrypyt the password
-// mongo's save()-> encrypt password, find() -> decrypty
+
 const secret = "TheSecret.";
 userSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password'] });
 
